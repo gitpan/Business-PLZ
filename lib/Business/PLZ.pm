@@ -1,12 +1,12 @@
 use strict;
 use warnings;
 package Business::PLZ;
-BEGIN {
-  $Business::PLZ::VERSION = '0.1';
+{
+  $Business::PLZ::VERSION = '0.11';
 }
-#ABSTRACT: Map German postal codes to German states
+#ABSTRACT: Validate German postal codes and map them to states
 
-use Tree::Binary::Search;
+use Tree::Binary::Search 1.0;
 use overload '""' => sub { ${$_[0]} };
 use Carp 'croak';
 
@@ -87,8 +87,7 @@ sub state {
     $plz = Business::PLZ->new( $plz )
         unless ref $plz and $plz->isa('Business::PLZ');
     # Tree::Binary throws on exception if key does not exist :-(
-    my $state = $STATES->select($plz) if $STATES->exists($plz);
-    return $state;
+    return $STATES->exists($plz) ? $STATES->select($plz) : undef;
 }
 
 sub exists {
@@ -109,11 +108,11 @@ sub iso_state {
 
 =head1 NAME
 
-Business::PLZ - Map German postal codes to German states
+Business::PLZ - Validate German postal codes and map them to states
 
 =head1 VERSION
 
-version 0.1
+version 0.11
 
 =head1 SYNOPSIS
 
@@ -121,7 +120,7 @@ version 0.1
 
     my $plz = Business::PLZ->new('12345'); # croaks on invalid code
 
-    print "$plz"; # stringify
+    print "$plz";     # stringify
 
     $plz->state;      # state or undef if not exist 
     $plz->iso_state;  # state as full ISO code
@@ -135,7 +134,7 @@ This module validates German postal codes and maps them to states.
 =head2 state
 
 Returns the state ("Bundesland") of a postal code as ISO 3166-2 subdivision
-code. The country prefix 'DE-' (or 'AT-' is not included). Some postal codes
+code. The country prefix 'DE-' (or 'AT-') is not included. Some postal codes
 belong to more than one state - in this case only one state is returned. A
 future version of this module may also return multiple states. 
 
@@ -165,11 +164,11 @@ regular expressions for postal codes of almost every country.
 
 =head1 AUTHOR
 
-Jakob Voss <voss@gbv.de>
+Jakob Voß
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Jakob Voss <voss@gbv.de>.
+This software is copyright (c) 2013 by Jakob Voß.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -9,26 +9,28 @@ use ExtUtils::MakeMaker 6.30;
 
 
 my %WriteMakefileArgs = (
-  'ABSTRACT' => 'Map German postal codes to German states',
-  'AUTHOR' => 'Jakob Voss <voss@gbv.de>',
-  'BUILD_REQUIRES' => {
-    'Test::More' => '0'
+  "ABSTRACT" => "Validate German postal codes and map them to states",
+  "AUTHOR" => "Jakob Vo\303\237",
+  "BUILD_REQUIRES" => {
+    "Test::More" => 0
   },
-  'CONFIGURE_REQUIRES' => {
-    'ExtUtils::MakeMaker' => '6.30'
+  "CONFIGURE_REQUIRES" => {
+    "ExtUtils::MakeMaker" => "6.30"
   },
-  'DISTNAME' => 'Business-PLZ',
-  'EXE_FILES' => [],
-  'LICENSE' => 'perl',
-  'NAME' => 'Business::PLZ',
-  'PREREQ_PM' => {
-    'Carp' => '0',
-    'Tree::Binary::Search' => '0',
-    'overload' => '0'
+  "DISTNAME" => "Business-PLZ",
+  "EXE_FILES" => [],
+  "LICENSE" => "perl",
+  "NAME" => "Business::PLZ",
+  "PREREQ_PM" => {
+    "Carp" => 0,
+    "Tree::Binary::Search" => "1.0",
+    "overload" => 0,
+    "strict" => 0,
+    "warnings" => 0
   },
-  'VERSION' => '0.1',
-  'test' => {
-    'TESTS' => 't/*.t'
+  "VERSION" => "0.11",
+  "test" => {
+    "TESTS" => "t/*.t"
   }
 );
 
